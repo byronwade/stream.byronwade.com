@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stream
 
-## Getting Started
+**Stream** is a frontend-only streaming platform concept with mocked backend flows. It demonstrates product parity with major live platforms — discovery, watch, clips, chat, moderation, and creator studio — without real ingest, auth, or analytics infrastructure.
 
-First, run the development server:
+> This is a portfolio demonstration project, not a functioning live broadcast stack.
+
+## Thesis
+
+A live platform designed around **discovery fit**, **context**, and **community health** instead of raw popularity. Key differentiators include Catch Me Up, Join Late, mood-based discovery, and structured chat tabs.
+
+## Tech stack
+
+- **Next.js 16** App Router with `output: 'export'` (static export)
+- **Tailwind CSS v4** with semantic design tokens
+- **Motion** for Bloom shared-element panel transitions
+- **localStorage** stores via `useSyncExternalStore` for session, follows, clips, reports, and layout prefs
+- Static JSON seed data at build time
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build static export
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Output is written to `out/` and can be deployed to Vercel or any static host.
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server |
+| `npm run build` | Static export build |
+| `npm run lint` | ESLint |
+| `npm test` | Vitest unit tests |
+| `npm run test:e2e` | Playwright E2E tests |
+| `npm run storybook` | Component Storybook |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Route map
 
-## Deploy on Vercel
+| Route | Description |
+|-------|-------------|
+| `/` | Homepage — featured hero, mood rail, live grid |
+| `/discover` | Discovery with mood/size/sort filters |
+| `/live/[slug]` | Watch page — player, chat, Bloom panels |
+| `/channels/[handle]` | Creator channel |
+| `/categories/[slug]` | Category browse |
+| `/clips`, `/clips/[id]` | Clip grid and detail |
+| `/clips/view?id=` | User-created clips (localStorage) |
+| `/search`, `/schedule` | Search and schedule |
+| `/auth/*` | Mock auth flows |
+| `/following`, `/library/clips` | User library |
+| `/studio/*` | Creator dashboard |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Bloom panels on the watch page use shareable URL params: `?panel=catch-up|clip|report|creator`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Mock behaviors
+
+- **Auth**: localStorage session, demo PIN `1234`
+- **Follow/unfollow**: optimistic UI with persistence
+- **Chat**: simulated messages from seeded personas
+- **Viewer counts**: pulsing mock timers
+- **Clips**: trim and publish to local clip store (keyboard `C` on watch page)
+- **Reports**: stored locally, visible in Studio moderation queue
+- **Go Live**: wizard transitions to simulated stream manager
+
+## Swapping media assets
+
+Replace files under `public/media/` without code changes:
+
+```
+public/media/
+  demo-loop.mp4          # Main demo video (reused across streams)
+  placeholder-poster.svg # Stream posters
+  placeholder-thumb.svg  # Thumbnails
+  creators/              # Avatar and banner SVGs
+  categories/            # Category hero images
+  demo/manifest.m3u8     # Optional HLS quality selector mock
+  demo/captions.vtt      # Mock captions track
+```
+
+Per-stream assets can be added at `public/media/streams/{slug}/` and referenced in `src/data/streams.json`.
+
+## Design system
+
+Tokens are defined in `src/app/globals.css` under `@theme`. Component classes include `.glass-card`, `.pill-nav`, `.bloom-panel`, `.video-stage`, and `.chat-card`.
+
+Translucency is used only for chrome (nav, chat, panels); forms and analytics use solid surfaces.
+
+## Deploy
+
+This project uses Next.js `output: 'export'` — the build writes static files to `out/`.
+
+**Vercel:** Link the repo with Framework preset **Next.js**, Node **22.x**, build command `npm run build`. Leave the output directory unset in project settings (do not manually set `out` — that breaks the Next.js builder).
+
+**Any static host:** Upload `out/` after `npm run build`.
+
+Linked Vercel project: `wades-web-dev/stream.byronwade.com`.
+
+## License
+
+MIT — demonstration project.

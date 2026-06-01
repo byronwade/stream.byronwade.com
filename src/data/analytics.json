@@ -1,0 +1,29 @@
+[
+  {
+    "streamId": "stream_001",
+    "timestamp": "2026-06-01T12:00:00-04:00",
+    "viewers": 120,
+    "retention": [100, 95, 88, 82, 78, 75, 72, 70, 68, 65],
+    "followsGained": 12,
+    "clipsCreated": 3,
+    "avgWatchTime": 1840
+  },
+  {
+    "streamId": "stream_001",
+    "timestamp": "2026-06-01T12:30:00-04:00",
+    "viewers": 450,
+    "retention": [100, 92, 85, 80, 76, 73, 70, 68, 66, 64],
+    "followsGained": 28,
+    "clipsCreated": 8,
+    "avgWatchTime": 2100
+  },
+  {
+    "streamId": "stream_001",
+    "timestamp": "2026-06-01T13:00:00-04:00",
+    "viewers": 842,
+    "retention": [100, 90, 83, 78, 74, 71, 68, 66, 64, 62],
+    "followsGained": 45,
+    "clipsCreated": 14,
+    "avgWatchTime": 2350
+  }
+]

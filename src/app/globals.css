@@ -1,26 +1,156 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+  --breakpoint-3xl: 120rem;
+
+  --color-bg-canvas: #070a12;
+  --color-bg-stage: #030509;
+  --color-bg-elevated: #101522;
+  --color-bg-elevated-2: #161c2b;
+  --color-bg-overlay: rgba(16, 21, 34, 0.72);
+
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+
+  --color-text-primary: #f5f7fb;
+  --color-text-secondary: #a7b0c0;
+  --color-text-tertiary: #7f8aa1;
+
+  --color-accent-primary: #4f8cff;
+  --color-accent-secondary: #8b5cf6;
+  --color-live: #ff4d6d;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-26: 6.5rem;
+  --spacing-30: 7.5rem;
+
+  --radius-panel: 1.5rem;
+  --radius-card: 1.25rem;
+  --radius-chip: 9999px;
+  --radius-dialog: 1.75rem;
+
+  --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.32);
+  --shadow-panel: 0 18px 56px rgba(0, 0, 0, 0.42);
+  --shadow-stage: 0 20px 80px rgba(0, 0, 0, 0.5);
+
+  --ease-bloom: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snappy: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply min-h-screen bg-bg-canvas text-text-primary antialiased;
+    font-family: var(--font-sans);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .app-canvas {
+    @apply min-h-screen bg-bg-canvas text-text-primary;
+    background-image:
+      radial-gradient(circle at top center, rgba(79, 140, 255, 0.08), transparent 28%),
+      radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.06), transparent 24%);
+  }
+
+  .glass-card {
+    @apply rounded-panel border;
+    border-color: var(--color-border-subtle);
+    background: var(--color-bg-overlay);
+    backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: var(--shadow-float);
+  }
+
+  .pill-nav {
+    @apply inline-flex items-center gap-2 rounded-chip border px-4 py-2 text-sm font-medium transition-colors;
+    border-color: var(--color-border-subtle);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .pill-nav-active {
+    @apply inline-flex items-center gap-2 rounded-chip border px-4 py-2 text-sm font-medium transition-colors;
+    border-color: rgba(79, 140, 255, 0.3);
+    background: rgba(79, 140, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(79, 140, 255, 0.1);
+  }
+
+  .bloom-panel {
+    @apply rounded-dialog border p-5 shadow-panel;
+    border-color: var(--color-border-subtle);
+    background: var(--color-bg-overlay);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  .video-stage {
+    @apply overflow-hidden bg-bg-stage;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-stage);
+  }
+
+  .chat-card {
+    @apply h-full min-h-[32rem] w-full rounded-panel border p-0 shadow-float;
+    border-color: var(--color-border-subtle);
+    background: var(--color-bg-overlay);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2;
+    --tw-ring-offset-color: var(--color-bg-canvas);
+  }
+
+  .muted-label {
+    @apply text-sm text-text-secondary;
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-[1600px] px-4 md:px-6 xl:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-chip bg-accent-primary px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2;
+    --tw-ring-offset-color: var(--color-bg-canvas);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-chip border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2;
+    border-color: var(--color-border-subtle);
+    --tw-ring-offset-color: var(--color-bg-canvas);
+  }
+
+  .live-badge {
+    @apply inline-flex items-center gap-1.5 rounded-chip bg-live/15 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-live;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl border bg-bg-elevated px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2;
+    border-color: var(--color-border-subtle);
+    --tw-ring-offset-color: var(--color-bg-canvas);
+  }
+
+  .solid-surface {
+    @apply rounded-panel border bg-bg-elevated p-5;
+    border-color: var(--color-border-subtle);
+  }
 }

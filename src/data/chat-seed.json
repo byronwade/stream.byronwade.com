@@ -1,0 +1,16 @@
+{
+  "personas": [
+    { "id": "p1", "name": "PixelPioneer", "role": "viewer", "templates": ["This looks amazing!", "Love the vibes", "How long have you been streaming?", "First time here, hi everyone!"] },
+    { "id": "p2", "name": "ModMaven", "role": "moderator", "templates": ["Remember to keep chat friendly!", "Pinned: poll is open", "Timeout issued for spam"] },
+    { "id": "p3", "name": "VIPGuest", "role": "vip", "templates": ["Been following since day one!", "This is my favorite stream", "Great content as always"] },
+    { "id": "p4", "name": "ChatBot", "role": "bot", "templates": ["Stream health: excellent", "New follower milestone!", "Clip created by viewer"] },
+    { "id": "p5", "name": "CuriousCat", "role": "viewer", "templates": ["What software is this?", "Can you explain that again?", "Question: how do you handle chat votes?"] }
+  ],
+  "tagTemplates": {
+    "city-builder": ["That district looks cozy", "Glass roofs would be fire", "Wood roofs for the aesthetic"],
+    "typescript": ["Types are looking clean", "Love the refactor approach", "What about strict mode?"],
+    "competitive": ["LET'S GOOO", "That was insane", "One more win for promo"],
+    "art": ["Beautiful brushwork", "The colors are perfect", "Trying this technique tonight"],
+    "default": ["Great stream!", "Hello from the UK", "Just joined, catching up"]
+  }
+}

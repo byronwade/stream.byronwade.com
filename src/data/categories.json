@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "creative",
+    "name": "Creative",
+    "heroImage": "/media/categories/creative.svg",
+    "description": "Art, design, music, and creative building streams.",
+    "topTags": ["art", "design", "music", "building"],
+    "featuredCreatorIds": ["creator_001", "creator_004"]
+  },
+  {
+    "slug": "gaming",
+    "name": "Gaming",
+    "heroImage": "/media/categories/gaming.svg",
+    "description": "Competitive, casual, and cozy gaming content.",
+    "topTags": ["competitive", "cozy", "speedrun", "rpg"],
+    "featuredCreatorIds": ["creator_003", "creator_006", "creator_008"]
+  },
+  {
+    "slug": "technology",
+    "name": "Technology",
+    "heroImage": "/media/categories/technology.svg",
+    "description": "Coding, devops, and tech deep dives.",
+    "topTags": ["typescript", "react", "devops", "ai"],
+    "featuredCreatorIds": ["creator_002", "creator_005"]
+  },
+  {
+    "slug": "irl",
+    "name": "IRL",
+    "heroImage": "/media/categories/irl.svg",
+    "description": "Real life events, talk shows, and community gatherings.",
+    "topTags": ["comedy", "talk", "community", "events"],
+    "featuredCreatorIds": ["creator_007"]
+  },
+  {
+    "slug": "music",
+    "name": "Music",
+    "heroImage": "/media/categories/music.svg",
+    "description": "Live performances, production, and music discovery.",
+    "topTags": ["live", "production", "dj", "instruments"],
+    "featuredCreatorIds": []
+  },
+  {
+    "slug": "education",
+    "name": "Education",
+    "heroImage": "/media/categories/education.svg",
+    "description": "Learning-focused streams and tutorials.",
+    "topTags": ["tutorial", "workshop", "study", "lecture"],
+    "featuredCreatorIds": ["creator_004", "creator_005"]
+  }
+]
