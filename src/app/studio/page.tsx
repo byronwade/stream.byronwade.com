@@ -18,6 +18,9 @@ export default function StudioPage() {
         <Link href="/studio/stream-manager" className="btn-secondary">
           Stream Manager
         </Link>
+        <Link href="/studio/monetization" className="btn-secondary">
+          Monetization
+        </Link>
         <Link href="/studio/moderation" className="btn-secondary">
           Moderation
         </Link>

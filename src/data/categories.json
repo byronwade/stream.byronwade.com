@@ -37,7 +37,7 @@
     "heroImage": "/media/categories/music.svg",
     "description": "Live performances, production, and music discovery.",
     "topTags": ["live", "production", "dj", "instruments"],
-    "featuredCreatorIds": []
+    "featuredCreatorIds": ["creator_009", "creator_010"]
   },
   {
     "slug": "education",
@@ -45,6 +45,6 @@
     "heroImage": "/media/categories/education.svg",
     "description": "Learning-focused streams and tutorials.",
     "topTags": ["tutorial", "workshop", "study", "lecture"],
-    "featuredCreatorIds": ["creator_004", "creator_005"]
+    "featuredCreatorIds": ["creator_011", "creator_005"]
   }
 ]

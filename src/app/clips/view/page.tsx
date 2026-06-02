@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { ClipPlayer } from "@/components/stream/clip-player";
 import { getClipById as getStaticClip, getStreamById, getCreatorById } from "@/lib/data";
 import { useClips } from "@/lib/stores/clip";
 import { formatDuration } from "@/lib/utils/format";
@@ -42,15 +43,13 @@ function ClipViewContent() {
   return (
     <div className="section-shell py-8">
       <div className="mx-auto max-w-4xl">
-        <div className="video-stage">
-          <video
-            src={clip.mp4Url}
-            poster={clip.posterUrl}
-            controls
-            className="aspect-video w-full bg-black"
-            aria-label={clip.title}
-          />
-        </div>
+        <ClipPlayer
+          src={clip.mp4Url}
+          poster={clip.posterUrl}
+          title={clip.title}
+          startSecond={clip.startSecond}
+          endSecond={clip.endSecond}
+        />
 
         <h1 className="mt-6 text-2xl font-bold">{clip.title}</h1>
         <p className="mt-2 text-sm text-text-secondary">

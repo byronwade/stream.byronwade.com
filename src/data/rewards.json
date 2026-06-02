@@ -1,0 +1,7 @@
+[
+  { "id": "rw_highlight", "label": "Highlight my message", "cost": 500, "description": "Pin your next chat message to the top for everyone." },
+  { "id": "rw_emote", "label": "Unlock a random emote", "cost": 1000, "description": "Add a surprise emote to your picker for this session." },
+  { "id": "rw_request", "label": "Request a topic", "cost": 1500, "description": "Drop a suggestion the creator will see in their queue." },
+  { "id": "rw_shoutout", "label": "Get a shout-out", "cost": 5000, "description": "Mock a creator shout-out in chat." },
+  { "id": "rw_vip", "label": "VIP for a day", "cost": 10000, "description": "Temporarily show a VIP badge next to your name." }
+]

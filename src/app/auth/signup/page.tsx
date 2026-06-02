@@ -9,6 +9,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [handle, setHandle] = useState("");
   const [password, setPassword] = useState("");
+  const [becomeCreator, setBecomeCreator] = useState(false);
   const [loading, setLoading] = useState(false);
   const { login } = useSession();
   const router = useRouter();
@@ -23,9 +24,9 @@ export default function SignupPage() {
       handle,
       displayName: handle,
       avatarUrl: "/media/creators/maya.svg",
-      isCreator: false,
+      isCreator: becomeCreator,
     });
-    router.push("/");
+    router.push(becomeCreator ? "/studio" : "/");
   };
 
   return (
@@ -38,8 +39,19 @@ export default function SignupPage() {
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required className="input-field" />
           <input type="text" value={handle} onChange={(e) => setHandle(e.target.value)} placeholder="Handle" required className="input-field" />
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required className="input-field" />
+          <label className="flex items-start gap-2 text-sm text-text-secondary">
+            <input
+              type="checkbox"
+              checked={becomeCreator}
+              onChange={(e) => setBecomeCreator(e.target.checked)}
+              className="focus-ring mt-0.5"
+            />
+            <span>
+              Start as a creator — unlocks Creator Studio and takes you there after signup.
+            </span>
+          </label>
           <button type="submit" disabled={loading} className="btn-primary w-full">
-            {loading ? "Creating..." : "Sign up"}
+            {loading ? "Creating..." : becomeCreator ? "Sign up as creator" : "Sign up"}
           </button>
         </form>
 

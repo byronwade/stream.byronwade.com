@@ -1,0 +1,32 @@
+[
+  {
+    "id": "wh_001",
+    "withName": "Maya Builds",
+    "withHandle": "maya-builds",
+    "avatarUrl": "/media/creators/maya.svg",
+    "messages": [
+      { "id": "wm_001", "from": "them", "text": "Thanks for the clip earlier — that bridge moment was perfect!", "sentAt": "2026-06-01T19:42:00-04:00" },
+      { "id": "wm_002", "from": "you", "text": "Of course! The market district is looking incredible.", "sentAt": "2026-06-01T19:45:00-04:00" },
+      { "id": "wm_003", "from": "them", "text": "Glass roofs are winning the poll so far 👀", "sentAt": "2026-06-01T19:46:00-04:00" }
+    ]
+  },
+  {
+    "id": "wh_002",
+    "withName": "JazzDev",
+    "withHandle": "jazzdev",
+    "avatarUrl": "/media/creators/jazzdev.svg",
+    "messages": [
+      { "id": "wm_010", "from": "them", "text": "Dropping the refactor VOD chapters tonight, want a heads up?", "sentAt": "2026-05-31T23:10:00-04:00" },
+      { "id": "wm_011", "from": "you", "text": "Yes please, the middleware section was gold.", "sentAt": "2026-05-31T23:20:00-04:00" }
+    ]
+  },
+  {
+    "id": "wh_003",
+    "withName": "Prof Ada",
+    "withHandle": "prof-ada",
+    "avatarUrl": "/media/creators/profada.svg",
+    "messages": [
+      { "id": "wm_020", "from": "them", "text": "Workshop notes are posted — merge sort walkthrough included.", "sentAt": "2026-06-01T16:05:00-04:00" }
+    ]
+  }
+]

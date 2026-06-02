@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { MoodRail } from "@/components/stream/mood-rail";
 import { StreamCard } from "@/components/stream/stream-card";
+import { ReminderButton } from "@/components/stream/reminder-button";
+import { ContinueWatchingRail } from "@/components/stream/continue-watching-rail";
 import { CreatorIdentityCard } from "@/components/creator/creator-identity-card";
 import {
   getFeaturedStream,
@@ -29,7 +31,7 @@ export default function HomePage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={featured.posterUrl}
-                alt=""
+                alt={`${featured.title} — featured live stream`}
                 className="aspect-video w-full object-cover"
                 width={1280}
                 height={720}
@@ -57,6 +59,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <ContinueWatchingRail className="section-shell mb-12" />
 
       <section className="section-shell mb-8">
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-text-secondary">
@@ -105,7 +109,7 @@ export default function HomePage() {
               className="overflow-hidden rounded-card border border-border-subtle bg-bg-elevated hover:border-border-strong focus-ring"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={clip.posterUrl} alt="" className="aspect-video w-full object-cover" width={320} height={180} />
+              <img src={clip.posterUrl} alt={`Clip thumbnail: ${clip.title}`} className="aspect-video w-full object-cover" width={320} height={180} />
               <p className="p-3 text-sm font-medium">{clip.title}</p>
             </Link>
           ))}
@@ -121,12 +125,19 @@ export default function HomePage() {
               return (
                 <div key={s.id} className="solid-surface flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <p className="font-medium">{s.title}</p>
+                    <Link href={`/live/${s.slug}`} className="font-medium hover:text-accent-primary focus-ring">
+                      {s.title}
+                    </Link>
                     <p className="text-sm text-text-secondary">{c?.displayName}</p>
                   </div>
-                  <Link href="/schedule" className="btn-secondary text-sm">
-                    Remind me
-                  </Link>
+                  <ReminderButton
+                    id={s.id}
+                    kind="stream"
+                    title={s.title}
+                    startsAt={s.scheduledFor}
+                    creatorName={c?.displayName}
+                    idleLabel="Remind me"
+                  />
                 </div>
               );
             })}

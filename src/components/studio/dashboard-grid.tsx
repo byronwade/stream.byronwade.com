@@ -65,6 +65,7 @@ export function DashboardGrid({ widgets }: DashboardGridProps) {
                 "solid-surface",
                 size && size.w >= 12 && "md:col-span-2 xl:col-span-3",
               )}
+              style={size ? { minHeight: `${size.h * 44}px` } : undefined}
             >
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="font-semibold">{widget.title}</h3>

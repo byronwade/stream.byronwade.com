@@ -1,0 +1,33 @@
+{
+  "global": [
+    { "code": "streamLove", "char": "💜", "label": "Stream Love" },
+    { "code": "pog", "char": "😮", "label": "Pog" },
+    { "code": "lol", "char": "😂", "label": "LOL" },
+    { "code": "fire", "char": "🔥", "label": "Fire" },
+    { "code": "gg", "char": "🤝", "label": "GG" },
+    { "code": "heart", "char": "❤️", "label": "Heart" },
+    { "code": "clap", "char": "👏", "label": "Clap" },
+    { "code": "think", "char": "🤔", "label": "Think" },
+    { "code": "wave", "char": "👋", "label": "Wave" },
+    { "code": "eyes", "char": "👀", "label": "Eyes" }
+  ],
+  "channels": {
+    "creator_001": [
+      { "code": "mayaBuild", "char": "🏙️", "label": "Maya Build", "tier": 1, "creatorId": "creator_001" },
+      { "code": "mayaVote", "char": "🗳️", "label": "Maya Vote", "tier": 2, "creatorId": "creator_001" },
+      { "code": "mayaCrown", "char": "👑", "label": "Maya Crown", "tier": 3, "creatorId": "creator_001" }
+    ],
+    "creator_003": [
+      { "code": "rocketBoost", "char": "🚀", "label": "Rocket Boost", "tier": 1, "creatorId": "creator_003" },
+      { "code": "rocketGoal", "char": "🥅", "label": "Rocket Goal", "tier": 2, "creatorId": "creator_003" }
+    ],
+    "creator_009": [
+      { "code": "novaNote", "char": "🎹", "label": "Nova Note", "tier": 1, "creatorId": "creator_009" },
+      { "code": "novaStar", "char": "🌙", "label": "Nova Star", "tier": 2, "creatorId": "creator_009" }
+    ],
+    "creator_010": [
+      { "code": "beatDrop", "char": "🎧", "label": "Beat Drop", "tier": 1, "creatorId": "creator_010" },
+      { "code": "beatVinyl", "char": "💿", "label": "Beat Vinyl", "tier": 2, "creatorId": "creator_010" }
+    ]
+  }
+}

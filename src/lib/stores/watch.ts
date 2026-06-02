@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import type { ChatMode } from "@/lib/types";
+import type { CaptionStyle, ChatMode } from "@/lib/types";
 import { createStore } from "./base";
 
 interface WatchPrefs {
@@ -11,7 +11,13 @@ interface WatchPrefs {
   captionsEnabled: boolean;
   theaterMode: boolean;
   catchUpDismissed: Record<string, boolean>;
+  /** Accessibility: hide video and play audio-only with a visualizer placeholder. */
+  audioOnly: boolean;
+  /** Accessibility: caption appearance applied to native player cues. */
+  captionStyle: CaptionStyle;
 }
+
+const defaultCaptionStyle: CaptionStyle = { size: "md", background: "semi" };
 
 const defaultWatch: WatchPrefs = {
   progress: {},
@@ -20,12 +26,26 @@ const defaultWatch: WatchPrefs = {
   captionsEnabled: false,
   theaterMode: false,
   catchUpDismissed: {},
+  audioOnly: false,
+  captionStyle: defaultCaptionStyle,
 };
 
 const watchStore = createStore<WatchPrefs>("stream:v1:watch", defaultWatch);
 
+if (typeof window !== "undefined") {
+  window.addEventListener("storage", (e) => {
+    if (e.key === "stream:v1:watch") watchStore.hydrate();
+  });
+}
+
 export function useWatchPrefs() {
-  const state = useSyncExternalStore(watchStore.subscribe, watchStore.getSnapshot, () => defaultWatch);
+  const raw = useSyncExternalStore(watchStore.subscribe, watchStore.getSnapshot, () => defaultWatch);
+  // Tolerate older persisted shapes that predate the accessibility fields.
+  const state = {
+    ...raw,
+    audioOnly: raw.audioOnly ?? false,
+    captionStyle: raw.captionStyle ?? defaultCaptionStyle,
+  };
 
   return {
     ...state,
@@ -41,6 +61,12 @@ export function useWatchPrefs() {
       watchStore.setState((prev) => ({ ...prev, captionsEnabled })),
     setTheaterMode: (theaterMode: boolean) =>
       watchStore.setState((prev) => ({ ...prev, theaterMode })),
+    setAudioOnly: (audioOnly: boolean) => watchStore.setState((prev) => ({ ...prev, audioOnly })),
+    setCaptionStyle: (updates: Partial<CaptionStyle>) =>
+      watchStore.setState((prev) => ({
+        ...prev,
+        captionStyle: { ...(prev.captionStyle ?? defaultCaptionStyle), ...updates },
+      })),
     dismissCatchUp: (streamId: string) => {
       watchStore.setState((prev) => ({
         ...prev,

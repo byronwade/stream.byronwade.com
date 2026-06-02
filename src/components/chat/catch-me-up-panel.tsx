@@ -7,9 +7,11 @@ import { formatDuration } from "@/lib/utils/format";
 interface CatchMeUpPanelProps {
   stream: Stream;
   currentTime: number;
+  /** Jump the player to a timestamp (seconds). When provided, moments/timeline become seek buttons. */
+  onSeek?: (seconds: number) => void;
 }
 
-export function CatchMeUpPanel({ stream, currentTime }: CatchMeUpPanelProps) {
+export function CatchMeUpPanel({ stream, currentTime, onSeek }: CatchMeUpPanelProps) {
   const { moments, timelineEvents } = resolveCatchUpMoments(stream, currentTime);
   const showJoinLate = shouldShowJoinLate(stream);
   const headline = showJoinLate ? getJoinLateHeadline(stream) : stream.catchUp.headline;
@@ -33,15 +35,32 @@ export function CatchMeUpPanel({ stream, currentTime }: CatchMeUpPanelProps) {
         <div>
           <h4 className="mb-2 text-sm font-semibold text-text-secondary">Recent moments</h4>
           <ul className="space-y-3">
-            {moments.map((m) => (
-              <li key={m.atSecond} className="solid-surface">
-                <div className="flex items-center gap-2 text-xs text-accent-primary">
-                  {formatDuration(m.atSecond)}
-                  <span className="font-semibold">{m.label}</span>
-                </div>
-                <p className="mt-1 text-sm text-text-secondary">{m.summary}</p>
-              </li>
-            ))}
+            {moments.map((m) =>
+              onSeek ? (
+                <li key={m.atSecond}>
+                  <button
+                    type="button"
+                    onClick={() => onSeek(m.atSecond)}
+                    className="solid-surface focus-ring block w-full text-left transition-colors hover:border-accent-primary/30"
+                  >
+                    <div className="flex items-center gap-2 text-xs text-accent-primary">
+                      <span aria-hidden>▸</span>
+                      {formatDuration(m.atSecond)}
+                      <span className="font-semibold">{m.label}</span>
+                    </div>
+                    <p className="mt-1 text-sm text-text-secondary">{m.summary}</p>
+                  </button>
+                </li>
+              ) : (
+                <li key={m.atSecond} className="solid-surface">
+                  <div className="flex items-center gap-2 text-xs text-accent-primary">
+                    {formatDuration(m.atSecond)}
+                    <span className="font-semibold">{m.label}</span>
+                  </div>
+                  <p className="mt-1 text-sm text-text-secondary">{m.summary}</p>
+                </li>
+              ),
+            )}
           </ul>
         </div>
       )}
@@ -50,15 +69,31 @@ export function CatchMeUpPanel({ stream, currentTime }: CatchMeUpPanelProps) {
         <div>
           <h4 className="mb-2 text-sm font-semibold text-text-secondary">Timeline</h4>
           <ul className="space-y-2">
-            {timelineEvents.map((e) => (
-              <li key={e.id} className="flex gap-3 text-sm">
-                <span className="shrink-0 text-text-tertiary">{formatDuration(e.atSecond)}</span>
-                <div>
-                  <span className="font-medium">{e.title}</span>
-                  <p className="text-text-secondary">{e.summary}</p>
-                </div>
-              </li>
-            ))}
+            {timelineEvents.map((e) =>
+              onSeek ? (
+                <li key={e.id}>
+                  <button
+                    type="button"
+                    onClick={() => onSeek(e.atSecond)}
+                    className="focus-ring flex w-full gap-3 rounded-lg p-1 text-left text-sm hover:bg-white/5"
+                  >
+                    <span className="shrink-0 text-accent-primary">{formatDuration(e.atSecond)}</span>
+                    <div>
+                      <span className="font-medium">{e.title}</span>
+                      <p className="text-text-secondary">{e.summary}</p>
+                    </div>
+                  </button>
+                </li>
+              ) : (
+                <li key={e.id} className="flex gap-3 text-sm">
+                  <span className="shrink-0 text-text-tertiary">{formatDuration(e.atSecond)}</span>
+                  <div>
+                    <span className="font-medium">{e.title}</span>
+                    <p className="text-text-secondary">{e.summary}</p>
+                  </div>
+                </li>
+              ),
+            )}
           </ul>
         </div>
       )}

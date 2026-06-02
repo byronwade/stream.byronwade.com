@@ -1,18 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "@/lib/stores/session";
 import { useUIStore } from "@/lib/stores/ui";
+import { useNotificationSimulator } from "@/lib/mock/simulators";
 import { cn } from "@/lib/utils/cn";
 import { SearchPanel } from "./search-panel";
 import { ToastRegion } from "./toast-region";
 import { ConceptBanner } from "./concept-banner";
+import { NotificationBell } from "./notification-bell";
+import { ThemeToggle } from "./theme-toggle";
+import { OnboardingTour } from "./onboarding-tour";
+import { MiniPlayer } from "@/components/stream/mini-player";
+import { ShortcutsOverlay } from "@/components/stream/keyboard-shortcuts";
 
 const NAV_ITEMS = [
   { href: "/discover", label: "Browse" },
   { href: "/following", label: "Following" },
   { href: "/clips", label: "Clips" },
+  { href: "/squad", label: "Squad" },
 ];
 
 const MOBILE_NAV = [
@@ -25,8 +33,13 @@ const MOBILE_NAV = [
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { isAuthenticated, user } = useSession();
-  const { searchOpen, setSearchOpen } = useUIStore();
+  const router = useRouter();
+  const { isAuthenticated, user, logout } = useSession();
+  const { searchOpen, setSearchOpen, addToast } = useUIStore();
+  const [accountOpen, setAccountOpen] = useState(false);
+
+  // Global mock notification feed (browser-only; pushes into the notifications store).
+  useNotificationSimulator(true);
 
   const isWatch = pathname.startsWith("/live/");
   const isAuth = pathname.startsWith("/auth/");
@@ -76,10 +89,94 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   Schedule
                 </Link>
               )}
+              <NotificationBell />
               {isAuthenticated ? (
-                <Link href="/studio" className="btn-secondary px-4 py-2 text-sm">
-                  {user?.displayName ?? "Profile"}
-                </Link>
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setAccountOpen((o) => !o)}
+                    className="btn-secondary px-4 py-2 text-sm"
+                    aria-haspopup="menu"
+                    aria-expanded={accountOpen}
+                  >
+                    {user?.displayName ?? "Profile"}
+                  </button>
+                  {accountOpen && (
+                    <>
+                      <button
+                        type="button"
+                        className="fixed inset-0 z-40 cursor-default"
+                        aria-hidden
+                        tabIndex={-1}
+                        onClick={() => setAccountOpen(false)}
+                      />
+                      <div
+                        role="menu"
+                        className="absolute right-0 z-50 mt-2 w-60 overflow-hidden rounded-card border border-border-subtle bg-bg-elevated py-1 shadow-lg"
+                      >
+                        <Link
+                          href="/studio"
+                          role="menuitem"
+                          onClick={() => setAccountOpen(false)}
+                          className="block px-4 py-2 text-sm hover:bg-bg-elevated-2 focus-ring"
+                        >
+                          Creator Studio
+                        </Link>
+                        <Link
+                          href="/messages"
+                          role="menuitem"
+                          onClick={() => setAccountOpen(false)}
+                          className="block px-4 py-2 text-sm hover:bg-bg-elevated-2 focus-ring"
+                        >
+                          Messages
+                        </Link>
+                        <Link
+                          href="/library/clips"
+                          role="menuitem"
+                          onClick={() => setAccountOpen(false)}
+                          className="block px-4 py-2 text-sm hover:bg-bg-elevated-2 focus-ring"
+                        >
+                          My clips
+                        </Link>
+                        <Link
+                          href="/following"
+                          role="menuitem"
+                          onClick={() => setAccountOpen(false)}
+                          className="block px-4 py-2 text-sm hover:bg-bg-elevated-2 focus-ring"
+                        >
+                          Following
+                        </Link>
+                        <Link
+                          href="/settings"
+                          role="menuitem"
+                          onClick={() => setAccountOpen(false)}
+                          className="block px-4 py-2 text-sm hover:bg-bg-elevated-2 focus-ring"
+                        >
+                          Settings
+                        </Link>
+                        <div className="border-t border-border-subtle px-4 py-2.5">
+                          <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-text-tertiary">
+                            Theme
+                          </p>
+                          <ThemeToggle size="sm" />
+                        </div>
+                        <button
+                          type="button"
+                          role="menuitem"
+                          onClick={() => {
+                            logout();
+                            setAccountOpen(false);
+                            addToast("Signed out");
+                            router.push("/");
+                          }}
+                          className="block w-full border-t border-border-subtle px-4 py-2 text-left text-sm text-text-secondary hover:bg-bg-elevated-2 hover:text-text-primary focus-ring"
+                        >
+                          Sign out
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
               ) : (
                 <Link href="/auth/login" className="btn-primary px-4 py-2 text-sm">
                   Sign in
@@ -117,10 +214,25 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {!isAuth && (
         <footer className="border-t border-border-subtle py-6 pb-24 md:pb-6">
-          <div className="section-shell flex flex-col gap-2 text-sm text-text-tertiary">
-            <p>
-              Stream is a frontend-only streaming platform concept with mocked backend flows.
-            </p>
+          <div className="section-shell flex flex-col gap-4 text-sm text-text-tertiary">
+            <nav className="flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Footer">
+              <Link href="/about" className="hover:text-text-secondary focus-ring">
+                About
+              </Link>
+              <Link href="/help" className="hover:text-text-secondary focus-ring">
+                Help
+              </Link>
+              <Link href="/settings" className="hover:text-text-secondary focus-ring">
+                Settings
+              </Link>
+              <Link href="/schedule" className="hover:text-text-secondary focus-ring">
+                Schedule
+              </Link>
+              <span className="ml-auto">
+                <ThemeToggle size="sm" />
+              </span>
+            </nav>
+            <p>Stream is a frontend-only streaming platform concept with mocked backend flows.</p>
             <p>© 2026 Stream — Portfolio demonstration project.</p>
           </div>
         </footer>
@@ -128,6 +240,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <SearchPanel open={searchOpen} onClose={() => setSearchOpen(false)} />
       <ToastRegion />
+      <ShortcutsOverlay />
+      <MiniPlayer />
+      <OnboardingTour />
     </div>
   );
 }

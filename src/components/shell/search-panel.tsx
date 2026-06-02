@@ -36,6 +36,10 @@ export function SearchPanel({ open, onClose }: SearchPanelProps) {
       ]
     : [];
 
+  const totalResults = results
+    ? results.streams.length + results.creators.length + results.categories.length + results.clips.length
+    : 0;
+
   return (
     <BloomLayer open={open} onClose={onClose} title="Search" className="max-w-xl">
       <input
@@ -48,7 +52,13 @@ export function SearchPanel({ open, onClose }: SearchPanelProps) {
         aria-label="Search query"
       />
 
-      {results && (
+      {results && totalResults === 0 && (
+        <p className="py-6 text-center text-sm text-text-tertiary">
+          No results for &ldquo;{query}&rdquo;. Try a different search.
+        </p>
+      )}
+
+      {results && totalResults > 0 && (
         <>
           <div className="mb-4 flex flex-wrap gap-2">
             {tabs.map((t) => (
@@ -114,6 +124,14 @@ export function SearchPanel({ open, onClose }: SearchPanelProps) {
                 </li>
               ))}
           </ul>
+
+          <Link
+            href={`/search?q=${encodeURIComponent(query)}`}
+            onClick={onClose}
+            className="mt-4 block text-center text-sm text-accent-primary hover:underline focus-ring"
+          >
+            See all results for &ldquo;{query}&rdquo;
+          </Link>
         </>
       )}
     </BloomLayer>

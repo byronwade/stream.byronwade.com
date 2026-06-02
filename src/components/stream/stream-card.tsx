@@ -33,7 +33,7 @@ export function StreamCard({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={stream.thumbnailUrl}
-          alt=""
+          alt={`${stream.title} thumbnail`}
           className="h-full w-full object-cover"
           width={640}
           height={360}

@@ -1,0 +1,59 @@
+[
+  {
+    "id": "poll_001",
+    "streamId": "stream_001",
+    "question": "Roof style for the market district?",
+    "options": [
+      { "id": "opt_a", "label": "Glass roofs", "votes": 184 },
+      { "id": "opt_b", "label": "Wood roofs", "votes": 112 },
+      { "id": "opt_c", "label": "Mixed materials", "votes": 73 }
+    ],
+    "status": "open",
+    "totalSeedVotes": 369
+  },
+  {
+    "id": "poll_002",
+    "streamId": "stream_001",
+    "question": "What should we build next?",
+    "options": [
+      { "id": "opt_a", "label": "Riverside park", "votes": 256 },
+      { "id": "opt_b", "label": "Transit hub", "votes": 201 }
+    ],
+    "status": "closed",
+    "totalSeedVotes": 457
+  },
+  {
+    "id": "poll_003",
+    "streamId": "stream_003",
+    "question": "Which rank push next session?",
+    "options": [
+      { "id": "opt_a", "label": "1v1 duels", "votes": 88 },
+      { "id": "opt_b", "label": "3v3 standard", "votes": 142 },
+      { "id": "opt_c", "label": "Hoops", "votes": 41 }
+    ],
+    "status": "open",
+    "totalSeedVotes": 271
+  },
+  {
+    "id": "poll_004",
+    "streamId": "stream_006",
+    "question": "Greenhouse crop priority?",
+    "options": [
+      { "id": "opt_a", "label": "Ancient fruit", "votes": 167 },
+      { "id": "opt_b", "label": "Starfruit", "votes": 99 }
+    ],
+    "status": "open",
+    "totalSeedVotes": 266
+  },
+  {
+    "id": "poll_009",
+    "streamId": "stream_009",
+    "question": "Next piece to play?",
+    "options": [
+      { "id": "opt_a", "label": "Nocturne", "votes": 54 },
+      { "id": "opt_b", "label": "Original improv", "votes": 121 }
+    ],
+    "status": "open",
+    "totalSeedVotes": 175
+  }
+]

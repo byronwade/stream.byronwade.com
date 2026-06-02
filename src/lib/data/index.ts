@@ -4,13 +4,22 @@ import categoriesData from "@/data/categories.json";
 import clipsData from "@/data/clips.json";
 import analyticsData from "@/data/analytics.json";
 import chatSeedData from "@/data/chat-seed.json";
+import pollsData from "@/data/polls.json";
+import emotesData from "@/data/emotes.json";
+import predictionsData from "@/data/predictions.json";
+import rewardsData from "@/data/rewards.json";
 import type {
   AnalyticsSnapshot,
   Category,
   ChatSeed,
   Clip,
   Creator,
+  Emote,
+  EmoteSet,
   Mood,
+  Poll,
+  Prediction,
+  Reward,
   Stream,
 } from "@/lib/types";
 
@@ -20,6 +29,10 @@ const categories = categoriesData as Category[];
 const clips = clipsData as Clip[];
 const analytics = analyticsData as AnalyticsSnapshot[];
 const chatSeed = chatSeedData as ChatSeed;
+const polls = pollsData as Poll[];
+const emoteSet = emotesData as EmoteSet;
+const predictions = predictionsData as Prediction[];
+const rewards = rewardsData as Reward[];
 
 export function getAllStreams(): Stream[] {
   return streams;
@@ -93,6 +106,19 @@ export function getChatSeed(): ChatSeed {
   return chatSeed;
 }
 
+export function getAllPolls(): Poll[] {
+  return polls;
+}
+
+export function getPollsByStreamId(streamId: string): Poll[] {
+  return polls.filter((p) => p.streamId === streamId);
+}
+
+export function getStreamsWithAnalytics(): Stream[] {
+  const ids = new Set(analytics.map((a) => a.streamId));
+  return streams.filter((s) => ids.has(s.id));
+}
+
 export function getFeaturedStream(): Stream {
   return streams.find((s) => s.slug === "forest-city-build") ?? streams[0];
 }
@@ -164,6 +190,34 @@ export function searchAll(query: string) {
     ),
     clips: clips.filter((c) => c.title.toLowerCase().includes(q)),
   };
+}
+
+export function getGlobalEmotes(): Emote[] {
+  return emoteSet.global;
+}
+
+export function getChannelEmotes(creatorId: string): Emote[] {
+  return emoteSet.channels[creatorId] ?? [];
+}
+
+export function getEmotesForStream(creatorId: string): Emote[] {
+  return [...emoteSet.global, ...getChannelEmotes(creatorId)];
+}
+
+export function getAllPredictions(): Prediction[] {
+  return predictions;
+}
+
+export function getPredictionsByStreamId(streamId: string): Prediction[] {
+  return predictions.filter((p) => p.streamId === streamId);
+}
+
+export function getRewards(): Reward[] {
+  return rewards;
+}
+
+export function getEndedStreams(): Stream[] {
+  return streams.filter((s) => s.state === "ended");
 }
 
 export function getAllStreamSlugs(): string[] {

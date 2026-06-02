@@ -11,10 +11,11 @@ interface Toast {
 
 interface UIState {
   searchOpen: boolean;
+  shortcutsOpen: boolean;
   toasts: Toast[];
 }
 
-const defaultUI: UIState = { searchOpen: false, toasts: [] };
+const defaultUI: UIState = { searchOpen: false, shortcutsOpen: false, toasts: [] };
 let uiState = defaultUI;
 const listeners = new Set<() => void>();
 
@@ -52,7 +53,12 @@ export function useUIStore() {
     notify();
   }, []);
 
-  return { ...state, addToast, dismissToast, setSearchOpen };
+  const setShortcutsOpen = useCallback((open: boolean) => {
+    uiState = { ...uiState, shortcutsOpen: open };
+    notify();
+  }, []);
+
+  return { ...state, addToast, dismissToast, setSearchOpen, setShortcutsOpen };
 }
 
 export function usePanelState() {

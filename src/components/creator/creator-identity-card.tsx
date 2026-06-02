@@ -22,7 +22,7 @@ export function CreatorIdentityCard({ creator, compact }: CreatorIdentityCardPro
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={creator.avatarUrl}
-        alt=""
+        alt={`${creator.displayName} avatar`}
         width={compact ? 40 : 56}
         height={compact ? 40 : 56}
         className="rounded-full bg-bg-elevated"

@@ -4,6 +4,12 @@ import { useSyncExternalStore } from "react";
 import type { Report } from "@/lib/types";
 import { createStore } from "./base";
 
+interface ChatControls {
+  slowMode: boolean;
+  followersOnly: boolean;
+  clearedAt: string | null;
+}
+
 interface ReportState {
   reports: Report[];
   modActions: Array<{
@@ -13,9 +19,15 @@ interface ReportState {
     createdAt: string;
   }>;
   blockedTerms: string[];
+  chatControls: ChatControls;
 }
 
-const defaultReports: ReportState = { reports: [], modActions: [], blockedTerms: [] };
+const defaultReports: ReportState = {
+  reports: [],
+  modActions: [],
+  blockedTerms: [],
+  chatControls: { slowMode: false, followersOnly: false, clearedAt: null },
+};
 const reportStore = createStore<ReportState>("stream:v1:reports", defaultReports);
 
 if (typeof window !== "undefined") {
@@ -26,9 +38,38 @@ if (typeof window !== "undefined") {
 
 export function useReports() {
   const state = useSyncExternalStore(reportStore.subscribe, reportStore.getSnapshot, () => defaultReports);
+  const chatControls = state.chatControls ?? defaultReports.chatControls;
 
   return {
     ...state,
+    chatControls,
+    toggleSlowMode: () => {
+      reportStore.setState((prev) => ({
+        ...prev,
+        chatControls: {
+          ...(prev.chatControls ?? defaultReports.chatControls),
+          slowMode: !(prev.chatControls ?? defaultReports.chatControls).slowMode,
+        },
+      }));
+    },
+    toggleFollowersOnly: () => {
+      reportStore.setState((prev) => ({
+        ...prev,
+        chatControls: {
+          ...(prev.chatControls ?? defaultReports.chatControls),
+          followersOnly: !(prev.chatControls ?? defaultReports.chatControls).followersOnly,
+        },
+      }));
+    },
+    clearChat: () => {
+      reportStore.setState((prev) => ({
+        ...prev,
+        chatControls: {
+          ...(prev.chatControls ?? defaultReports.chatControls),
+          clearedAt: new Date().toISOString(),
+        },
+      }));
+    },
     submitReport: (report: Omit<Report, "id" | "createdAt">) => {
       const newReport: Report = {
         ...report,

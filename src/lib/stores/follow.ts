@@ -25,6 +25,7 @@ export function useFollows() {
     ...state,
     isFollowingCreator: (id: string) => state.creators.includes(id),
     isFollowingStream: (id: string) => state.streams.includes(id),
+    isFollowingCategory: (slug: string) => state.categories.includes(slug),
     toggleCreator: (id: string) => {
       followStore.setState((prev) => ({
         ...prev,

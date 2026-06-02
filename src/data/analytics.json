@@ -25,5 +25,86 @@
     "followsGained": 45,
     "clipsCreated": 14,
     "avgWatchTime": 2350
+  },
+  {
+    "streamId": "stream_002",
+    "timestamp": "2026-06-01T20:15:00-04:00",
+    "viewers": 210,
+    "retention": [100, 96, 92, 89, 86, 84, 82, 80, 79, 78],
+    "followsGained": 9,
+    "clipsCreated": 2,
+    "avgWatchTime": 2980
+  },
+  {
+    "streamId": "stream_002",
+    "timestamp": "2026-06-01T20:45:00-04:00",
+    "viewers": 312,
+    "retention": [100, 95, 91, 88, 85, 83, 81, 79, 78, 77],
+    "followsGained": 14,
+    "clipsCreated": 4,
+    "avgWatchTime": 3120
+  },
+  {
+    "streamId": "stream_003",
+    "timestamp": "2026-06-01T19:00:00-04:00",
+    "viewers": 1680,
+    "retention": [100, 88, 79, 72, 67, 63, 60, 57, 55, 53],
+    "followsGained": 62,
+    "clipsCreated": 21,
+    "avgWatchTime": 1520
+  },
+  {
+    "streamId": "stream_003",
+    "timestamp": "2026-06-01T19:30:00-04:00",
+    "viewers": 2156,
+    "retention": [100, 86, 76, 69, 64, 60, 57, 54, 52, 50],
+    "followsGained": 88,
+    "clipsCreated": 33,
+    "avgWatchTime": 1610
+  },
+  {
+    "streamId": "stream_006",
+    "timestamp": "2026-06-01T11:30:00-04:00",
+    "viewers": 410,
+    "retention": [100, 94, 89, 85, 82, 80, 78, 77, 76, 75],
+    "followsGained": 18,
+    "clipsCreated": 5,
+    "avgWatchTime": 3640
+  },
+  {
+    "streamId": "stream_006",
+    "timestamp": "2026-06-01T12:30:00-04:00",
+    "viewers": 567,
+    "retention": [100, 93, 88, 84, 81, 79, 77, 76, 75, 74],
+    "followsGained": 27,
+    "clipsCreated": 9,
+    "avgWatchTime": 3880
+  },
+  {
+    "streamId": "stream_009",
+    "timestamp": "2026-06-01T22:45:00-04:00",
+    "viewers": 274,
+    "retention": [100, 95, 90, 87, 84, 82, 81, 80, 79, 78],
+    "followsGained": 16,
+    "clipsCreated": 3,
+    "avgWatchTime": 2740
+  },
+  {
+    "streamId": "stream_010",
+    "timestamp": "2026-06-01T17:30:00-04:00",
+    "viewers": 612,
+    "retention": [100, 92, 86, 82, 79, 77, 75, 74, 73, 72],
+    "followsGained": 31,
+    "clipsCreated": 7,
+    "avgWatchTime": 2510
+  },
+  {
+    "streamId": "stream_011",
+    "timestamp": "2026-06-01T16:00:00-04:00",
+    "viewers": 438,
+    "retention": [100, 97, 94, 91, 89, 87, 86, 85, 84, 83],
+    "followsGained": 22,
+    "clipsCreated": 4,
+    "avgWatchTime": 3320
   }
 ]

@@ -1,16 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { searchAll } from "@/lib/data";
 
-export default function SearchPage() {
-  const [query, setQuery] = useState("");
+function SearchContent() {
+  const params = useSearchParams();
+  const [query, setQuery] = useState(params.get("q") ?? "");
   const results = query.length >= 2 ? searchAll(query) : null;
+  const total = results
+    ? results.streams.length + results.creators.length + results.categories.length + results.clips.length
+    : 0;
 
   return (
-    <div className="section-shell py-8">
-      <h1 className="text-2xl font-bold">Search</h1>
+    <>
       <input
         type="search"
         value={query}
@@ -18,9 +22,16 @@ export default function SearchPage() {
         placeholder="Search streams, creators, categories, clips..."
         className="input-field mt-6 max-w-xl"
         aria-label="Search"
+        autoFocus
       />
 
-      {results && (
+      {results && total === 0 && (
+        <p className="mt-8 text-text-secondary">
+          No results for &ldquo;{query}&rdquo;. Try a different search.
+        </p>
+      )}
+
+      {results && total > 0 && (
         <div className="mt-8 space-y-8">
           {results.streams.length > 0 && (
             <section>
@@ -80,6 +91,17 @@ export default function SearchPage() {
           )}
         </div>
       )}
+    </>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <div className="section-shell py-8">
+      <h1 className="text-2xl font-bold">Search</h1>
+      <Suspense fallback={<p className="mt-6 text-text-secondary">Loading search…</p>}>
+        <SearchContent />
+      </Suspense>
     </div>
   );
 }

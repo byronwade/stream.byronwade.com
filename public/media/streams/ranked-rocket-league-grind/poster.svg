@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Ranked grind to Grand Champ">
+  <defs><linearGradient id="g_rankedrocketleaguegrind_1280" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#070A12"/><stop offset="55%" style="stop-color:#F97316;stop-opacity:0.45"/><stop offset="100%" style="stop-color:#EF4444;stop-opacity:0.3"/></linearGradient></defs>
+  <rect width="1280" height="720" fill="url(#g_rankedrocketleaguegrind_1280)"/>
+  <circle cx="1049.6" cy="172.79999999999998" r="201.60000000000002" fill="#F97316" opacity="0.12"/>
+  <text x="76.8" y="129.6" fill="#F97316" font-family="system-ui,sans-serif" font-size="18.48" font-weight="700" letter-spacing="2" opacity="0.85">GAMING</text>
+  <text x="76.8" y="396.00000000000006" fill="#F5F7FB" font-family="system-ui,sans-serif" font-size="44" font-weight="700" opacity="0.92">Ranked grind to Grand Champ</text>
+  <text x="76.8" y="633.6" fill="#A7B0C0" font-family="system-ui,sans-serif" font-size="17.6" opacity="0.7">stream.byronwade.com</text>
+</svg>

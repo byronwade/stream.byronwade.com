@@ -38,6 +38,7 @@ test.describe("Stream platform", () => {
     await page.getByRole("button", { name: "Submit report" }).click();
     await expect(page.getByRole("status")).toContainText("Report submitted", { timeout: 5000 });
     await page.goto("/studio/moderation");
+    await page.getByRole("button", { name: "Unlock with demo PIN" }).click();
     await expect(page.getByText(/Report queue \(1\)/)).toBeVisible({ timeout: 5000 });
   });
 

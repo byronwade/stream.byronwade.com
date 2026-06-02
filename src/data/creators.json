@@ -11,7 +11,7 @@
     "followerCount": 12400,
     "schedule": [{ "id": "sch_001", "title": "Forest City Build", "startsAt": "2026-06-03T12:00:00-04:00", "categorySlug": "creative" }],
     "stats": { "averageViewers": 780, "chatHealthAverage": 92, "streamConsistencyScore": 88, "newViewerResponseRate": 74 },
-    "links": [{ "label": "Portfolio", "href": "#" }]
+    "links": [{ "label": "Portfolio", "href": "https://example.com/maya" }, { "label": "Discord", "href": "https://discord.com/" }]
   },
   {
     "id": "creator_002",
@@ -39,7 +39,7 @@
     "followerCount": 45200,
     "schedule": [{ "id": "sch_003", "title": "Ranked Grind", "startsAt": "2026-06-02T18:00:00-04:00", "categorySlug": "gaming" }],
     "stats": { "averageViewers": 2100, "chatHealthAverage": 74, "streamConsistencyScore": 95, "newViewerResponseRate": 28 },
-    "links": [{ "label": "Discord", "href": "#" }]
+    "links": [{ "label": "Discord", "href": "https://discord.com/" }, { "label": "YouTube", "href": "https://youtube.com/" }]
   },
   {
     "id": "creator_004",
@@ -66,7 +66,7 @@
     "followerCount": 22100,
     "schedule": [{ "id": "sch_005", "title": "React 19 Deep Dive", "startsAt": "2026-06-02T16:00:00-04:00", "categorySlug": "technology" }],
     "stats": { "averageViewers": 890, "chatHealthAverage": 90, "streamConsistencyScore": 87, "newViewerResponseRate": 62 },
-    "links": [{ "label": "GitHub", "href": "#" }]
+    "links": [{ "label": "GitHub", "href": "https://github.com/" }, { "label": "Blog", "href": "https://example.com/react-ranger" }]
   },
   {
     "id": "creator_006",
@@ -107,6 +107,51 @@
     "followerCount": 31500,
     "schedule": [],
     "stats": { "averageViewers": 1100, "chatHealthAverage": 78, "streamConsistencyScore": 93, "newViewerResponseRate": 35 },
-    "links": [{ "label": "Speedrun.com", "href": "#" }]
+    "links": [{ "label": "Speedrun.com", "href": "https://www.speedrun.com/" }]
+  },
+  {
+    "id": "creator_009",
+    "handle": "nova-keys",
+    "displayName": "Nova Keys",
+    "avatarUrl": "/media/creators/nova.svg",
+    "bannerUrl": "/media/creators/banner-music.svg",
+    "bio": "Late-night pianist taking live song requests from chat.",
+    "verified": false,
+    "liveStreamId": "stream_009",
+    "followerCount": 6700,
+    "schedule": [{ "id": "sch_009", "title": "Midnight Piano Improv", "startsAt": "2026-06-05T22:30:00-04:00", "categorySlug": "music" }],
+    "stats": { "averageViewers": 260, "chatHealthAverage": 93, "streamConsistencyScore": 84, "newViewerResponseRate": 79 },
+    "links": [{ "label": "Bandcamp", "href": "https://bandcamp.com/" }, { "label": "Instagram", "href": "https://instagram.com/" }]
+  },
+  {
+    "id": "creator_010",
+    "handle": "beat-forge",
+    "displayName": "Beat Forge",
+    "avatarUrl": "/media/creators/beatforge.svg",
+    "bannerUrl": "/media/creators/banner-music.svg",
+    "bio": "Lo-fi producer building tracks live from sample to master.",
+    "verified": true,
+    "liveStreamId": "stream_010",
+    "followerCount": 18300,
+    "schedule": [{ "id": "sch_010", "title": "Lo-fi Production Lab", "startsAt": "2026-06-04T17:00:00-04:00", "categorySlug": "music" }],
+    "stats": { "averageViewers": 590, "chatHealthAverage": 89, "streamConsistencyScore": 90, "newViewerResponseRate": 64 },
+    "links": [{ "label": "SoundCloud", "href": "https://soundcloud.com/" }, { "label": "Spotify", "href": "https://open.spotify.com/" }]
+  },
+  {
+    "id": "creator_011",
+    "handle": "prof-ada",
+    "displayName": "Prof Ada",
+    "avatarUrl": "/media/creators/profada.svg",
+    "bannerUrl": "/media/creators/banner-education.svg",
+    "bio": "CS educator running live workshops and beginner-friendly study halls.",
+    "verified": true,
+    "liveStreamId": "stream_011",
+    "followerCount": 14800,
+    "schedule": [
+      { "id": "sch_011", "title": "Intro to Algorithms", "startsAt": "2026-06-06T15:30:00-04:00", "categorySlug": "education" },
+      { "id": "sch_012", "title": "Spanish Conversation Hour", "startsAt": "2026-06-03T19:00:00-04:00", "categorySlug": "education" }
+    ],
+    "stats": { "averageViewers": 420, "chatHealthAverage": 95, "streamConsistencyScore": 89, "newViewerResponseRate": 86 },
+    "links": [{ "label": "Course notes", "href": "https://example.com/notes" }, { "label": "GitHub", "href": "https://github.com/" }]
   }
 ]

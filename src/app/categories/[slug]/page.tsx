@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { StreamCard } from "@/components/stream/stream-card";
 import { CreatorIdentityCard } from "@/components/creator/creator-identity-card";
+import { CategoryFollowButton } from "@/components/stream/category-follow-button";
+import { formatDuration } from "@/lib/utils/format";
 import {
   getAllCategorySlugs,
   getCategoryBySlug,
@@ -30,6 +32,7 @@ export default async function CategoryPage({ params }: PageProps) {
   if (!category) notFound();
 
   const streams = getStreamsByCategory(slug);
+  const liveStreams = streams.filter((s) => s.state === "live");
   const featured = category.featuredCreatorIds
     .map((id) => getCreatorById(id))
     .filter(Boolean);
@@ -41,10 +44,19 @@ export default async function CategoryPage({ params }: PageProps) {
     <div className="section-shell py-8">
       <div className="mb-8 overflow-hidden rounded-panel border border-border-subtle">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={category.heroImage} alt="" className="h-48 w-full object-cover md:h-64" />
+        <img
+          src={category.heroImage}
+          alt={`${category.name} category banner`}
+          className="h-48 w-full object-cover md:h-64"
+        />
         <div className="p-6">
-          <h1 className="text-3xl font-bold">{category.name}</h1>
-          <p className="mt-2 text-text-secondary">{category.description}</p>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold">{category.name}</h1>
+              <p className="mt-2 text-text-secondary">{category.description}</p>
+            </div>
+            <CategoryFollowButton slug={category.slug} name={category.name} />
+          </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {category.topTags.map((tag) => (
               <span key={tag} className="pill-nav text-xs">
@@ -70,22 +82,52 @@ export default async function CategoryPage({ params }: PageProps) {
 
       <section className="mb-12">
         <h2 className="mb-4 text-lg font-semibold">Live now</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {streams.filter((s) => s.state === "live").map((s) => (
-            <StreamCard key={s.id} stream={s} />
-          ))}
-        </div>
+        {liveStreams.length > 0 ? (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {liveStreams.map((s) => (
+              <StreamCard key={s.id} stream={s} />
+            ))}
+          </div>
+        ) : (
+          <p className="solid-surface text-sm text-text-secondary">
+            No one is live in {category.name} right now. Check the schedule or follow the category to
+            get mock reminders.
+          </p>
+        )}
       </section>
 
       <section>
         <h2 className="mb-4 text-lg font-semibold">Clips</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {clips.map((c) => (
-            <Link key={c.id} href={`/clips/${c.id}`} className="solid-surface focus-ring">
-              {c.title}
-            </Link>
-          ))}
-        </div>
+        {clips.length > 0 ? (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {clips.map((c) => (
+              <Link
+                key={c.id}
+                href={`/clips/${c.id}`}
+                className="group overflow-hidden rounded-card border border-border-subtle bg-bg-elevated hover:border-border-strong focus-ring"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={c.posterUrl}
+                  alt={`Clip thumbnail: ${c.title}`}
+                  className="aspect-video w-full object-cover transition-transform group-hover:scale-[1.02]"
+                  width={320}
+                  height={180}
+                />
+                <div className="p-3">
+                  <p className="text-sm font-medium line-clamp-2">{c.title}</p>
+                  <p className="mt-1 text-xs text-text-tertiary">
+                    {formatDuration(c.durationSeconds)} · {c.views.toLocaleString()} views
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className="solid-surface text-sm text-text-secondary">
+            No clips from {category.name} yet — create one from any live stream.
+          </p>
+        )}
       </section>
     </div>
   );

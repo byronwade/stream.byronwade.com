@@ -1,0 +1,35 @@
+[
+  {
+    "id": "pred_001",
+    "streamId": "stream_001",
+    "title": "Will the market district get glass roofs?",
+    "status": "open",
+    "winningOutcomeId": null,
+    "outcomes": [
+      { "id": "out_001a", "label": "Glass roofs win", "color": "blue", "seedPoints": 18400, "seedVoters": 212 },
+      { "id": "out_001b", "label": "Wood roofs win", "color": "pink", "seedPoints": 11200, "seedVoters": 148 }
+    ]
+  },
+  {
+    "id": "pred_002",
+    "streamId": "stream_003",
+    "title": "Does this ranked session hit Grand Champ?",
+    "status": "open",
+    "winningOutcomeId": null,
+    "outcomes": [
+      { "id": "out_002a", "label": "Promo this session", "color": "blue", "seedPoints": 42000, "seedVoters": 540 },
+      { "id": "out_002b", "label": "Not yet", "color": "pink", "seedPoints": 51000, "seedVoters": 612 }
+    ]
+  },
+  {
+    "id": "pred_003",
+    "streamId": "stream_009",
+    "title": "Will chat's next request be a movie theme?",
+    "status": "locked",
+    "winningOutcomeId": null,
+    "outcomes": [
+      { "id": "out_003a", "label": "Movie theme", "color": "blue", "seedPoints": 6400, "seedVoters": 88 },
+      { "id": "out_003b", "label": "Something else", "color": "pink", "seedPoints": 9100, "seedVoters": 121 }
+    ]
+  }
+]

@@ -35,9 +35,15 @@ export default function ForgotPasswordPage() {
             <p className="mt-2 text-sm text-text-secondary">
               We sent a demo reset link to {email}. This is a simulated flow — no email was sent.
             </p>
-            <div className="mt-4 rounded-xl border border-border-subtle bg-bg-elevated-2 p-4 text-sm">
-              <p className="font-mono text-accent-primary">https://stream.demo/reset?token=fake_demo_token</p>
-            </div>
+            <Link
+              href="/auth/reset?token=fake_demo_token"
+              className="mt-4 block rounded-xl border border-border-subtle bg-bg-elevated-2 p-4 text-sm hover:border-accent-primary/40 focus-ring"
+            >
+              <span className="font-mono text-accent-primary break-all">
+                https://stream.demo/reset?token=fake_demo_token
+              </span>
+              <span className="mt-1 block text-xs text-text-tertiary">Open demo reset link →</span>
+            </Link>
           </>
         )}
         <Link href="/auth/login" className="mt-4 block text-sm text-accent-primary hover:underline">

@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { StreamCard } from "@/components/stream/stream-card";
 import { PillNav } from "@/components/shell/pill-nav";
+import { SubscribeButton } from "@/components/creator/subscribe-dialog";
+import { formatDuration } from "@/lib/utils/format";
 import type { Clip, Creator, Stream } from "@/lib/types";
 
 interface ChannelClientProps {
@@ -25,11 +27,33 @@ function ChannelContent({ creator, streams, clips }: ChannelClientProps) {
 
   return (
     <>
+      <div className="mb-6 flex flex-wrap items-center gap-3">
+        <SubscribeButton creatorId={creator.id} creatorName={creator.displayName} />
+        <Link href="/messages" className="btn-secondary text-sm">
+          Message
+        </Link>
+      </div>
+
       <PillNav items={tabs} activeKey={tab} className="mb-8" />
 
       {tab === "about" && (
         <div className="max-w-2xl space-y-4">
           <p>{creator.bio}</p>
+          {creator.links.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {creator.links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pill-nav focus-ring text-xs"
+                >
+                  {link.label} ↗
+                </a>
+              ))}
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             <div className="solid-surface text-center">
               <p className="text-2xl font-bold">{creator.stats.averageViewers}</p>
@@ -59,13 +83,36 @@ function ChannelContent({ creator, streams, clips }: ChannelClientProps) {
       )}
 
       {tab === "clips" && (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {clips.map((c) => (
-            <Link key={c.id} href={`/clips/${c.id}`} className="solid-surface hover:border-accent-primary/30 focus-ring">
-              {c.title}
-            </Link>
-          ))}
-        </div>
+        <>
+          {clips.length > 0 ? (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {clips.map((c) => (
+                <Link
+                  key={c.id}
+                  href={`/clips/${c.id}`}
+                  className="group overflow-hidden rounded-card border border-border-subtle bg-bg-elevated hover:border-border-strong focus-ring"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={c.posterUrl}
+                    alt={`Clip thumbnail: ${c.title}`}
+                    className="aspect-video w-full object-cover transition-transform group-hover:scale-[1.02]"
+                    width={320}
+                    height={180}
+                  />
+                  <div className="p-3">
+                    <p className="text-sm font-medium line-clamp-2">{c.title}</p>
+                    <p className="mt-1 text-xs text-text-tertiary">
+                      {formatDuration(c.durationSeconds)} · {c.views.toLocaleString()} views
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-text-secondary">No clips from this channel yet.</p>
+          )}
+        </>
       )}
 
       {tab === "schedule" && (

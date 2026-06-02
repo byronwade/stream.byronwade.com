@@ -33,6 +33,10 @@ export function useSession() {
       sessionStore.setState({ user, isAuthenticated: true, pinVerified: false });
     },
     logout: () => sessionStore.setState(defaultSession),
+    lock: () => {
+      const current = sessionStore.getSnapshot();
+      sessionStore.setState({ ...current, pinVerified: false });
+    },
     verifyPin: (pin: string) => {
       const current = sessionStore.getSnapshot();
       if (current.user?.pin === pin || pin === "1234") {

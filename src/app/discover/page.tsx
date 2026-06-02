@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { MoodRail } from "@/components/stream/mood-rail";
 import { StreamCard } from "@/components/stream/stream-card";
+import { ContinueWatchingRail } from "@/components/stream/continue-watching-rail";
 import { filterStreams } from "@/lib/data";
 import type { Mood } from "@/lib/types";
 import { cn } from "@/lib/utils/cn";
@@ -24,6 +25,8 @@ function DiscoverContent() {
     <div className="section-shell py-8">
       <h1 className="text-2xl font-bold">Discover</h1>
       <p className="mt-1 text-text-secondary">Find streams that fit your mood and community size.</p>
+
+      <ContinueWatchingRail className="mt-8" />
 
       <div className="mt-6">
         <MoodRail linkMode selected={mood ?? undefined} />

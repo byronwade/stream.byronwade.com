@@ -58,6 +58,7 @@ export interface Stream {
     title: string;
     summary: string;
   }>;
+  chapters?: Chapter[];
   discovery: {
     fitScore: number;
     smallCommunityBoost: number;
@@ -155,6 +156,31 @@ export interface Report {
   resolvedAt?: string;
 }
 
+export interface PollOption {
+  id: string;
+  label: string;
+  votes: number;
+}
+
+export interface Poll {
+  id: string;
+  streamId: string;
+  question: string;
+  options: PollOption[];
+  status: "open" | "closed";
+  totalSeedVotes: number;
+}
+
+export interface Reminder {
+  id: string;
+  streamId?: string;
+  scheduleId?: string;
+  title: string;
+  startsAt: string | null;
+  creatorName?: string;
+  createdAt: string;
+}
+
 export interface LayoutPreset {
   id: string;
   route: string;
@@ -196,4 +222,144 @@ export const MOODS: { value: Mood; label: string }[] = [
   { value: "deep-focus", label: "Deep Focus" },
 ];
 
-export type PanelType = "catch-up" | "clip" | "report" | "creator" | "filter" | "analytics";
+export type PanelType =
+  | "catch-up"
+  | "clip"
+  | "report"
+  | "creator"
+  | "filter"
+  | "analytics"
+  | "subscribe"
+  | "predict"
+  | "rewards";
+
+// ---------------------------------------------------------------------------
+// Net-new feature types (engagement, viewer-xp, studio, theming)
+// ---------------------------------------------------------------------------
+
+/** VOD chapter marker; seeded on `ended` streams for the replay seek list. */
+export interface Chapter {
+  id: string;
+  atSecond: number;
+  title: string;
+}
+
+export type ThemeMode = "light" | "dark" | "system";
+
+export type CaptionSize = "sm" | "md" | "lg" | "xl";
+export type CaptionBackground = "solid" | "semi" | "none";
+
+/** Player caption styling, persisted in the watch store and applied via ::cue. */
+export interface CaptionStyle {
+  size: CaptionSize;
+  background: CaptionBackground;
+}
+
+export type SubTier = 1 | 2 | 3;
+
+export interface SubscriptionTierInfo {
+  tier: SubTier;
+  label: string;
+  priceLabel: string;
+  perks: string[];
+}
+
+/** A mock subscription to a creator's channel, stored in the subscription store. */
+export interface Subscription {
+  creatorId: string;
+  tier: SubTier;
+  since: string;
+}
+
+/** An emote that can be rendered inline in chat. `tier` gates it behind a sub tier. */
+export interface Emote {
+  code: string;
+  char: string;
+  label: string;
+  tier?: SubTier;
+  creatorId?: string;
+}
+
+export interface EmoteSet {
+  global: Emote[];
+  channels: Record<string, Emote[]>;
+}
+
+export interface PredictionOutcome {
+  id: string;
+  label: string;
+  color: "blue" | "pink";
+  seedPoints: number;
+  seedVoters: number;
+}
+
+export interface Prediction {
+  id: string;
+  streamId: string;
+  title: string;
+  status: "open" | "locked" | "resolved";
+  outcomes: PredictionOutcome[];
+  winningOutcomeId?: string | null;
+}
+
+/** A mock channel-points redemption reward. */
+export interface Reward {
+  id: string;
+  label: string;
+  cost: number;
+  description: string;
+}
+
+export interface WhisperMessage {
+  id: string;
+  from: "you" | "them";
+  text: string;
+  sentAt: string;
+}
+
+export interface WhisperThread {
+  id: string;
+  withName: string;
+  withHandle: string;
+  avatarUrl: string;
+  messages: WhisperMessage[];
+}
+
+export type NotificationKind = "live" | "clip" | "reply" | "follow" | "system";
+
+export interface NotificationItem {
+  id: string;
+  kind: NotificationKind;
+  title: string;
+  body?: string;
+  href?: string;
+  createdAt: string;
+  read: boolean;
+}
+
+export type AlertStyle = "minimal" | "hype" | "retro";
+
+/** Studio alert-box + follower-goal configuration. */
+export interface AlertSettings {
+  style: AlertStyle;
+  accent: string;
+  message: string;
+  sound: boolean;
+  goalLabel: string;
+  goalCurrent: number;
+  goalTarget: number;
+}
+
+/** A mock restream destination (label + clearly-fake key only). */
+export interface RestreamTarget {
+  id: string;
+  platform: string;
+  enabled: boolean;
+  streamKey: string;
+}
+
+export const SUB_TIERS: SubscriptionTierInfo[] = [
+  { tier: 1, label: "Tier 1", priceLabel: "$4.99/mo", perks: ["Ad-free viewing", "Tier 1 emotes", "Sub badge"] },
+  { tier: 2, label: "Tier 2", priceLabel: "$9.99/mo", perks: ["Everything in Tier 1", "Tier 2 emotes", "Loyalty badge"] },
+  { tier: 3, label: "Tier 3", priceLabel: "$24.99/mo", perks: ["Everything in Tier 2", "Tier 3 emotes", "Priority whispers"] },
+];

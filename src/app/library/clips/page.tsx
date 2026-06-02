@@ -2,49 +2,62 @@
 
 import Link from "next/link";
 import { useClips } from "@/lib/stores/clip";
-import { getAllClips } from "@/lib/data";
 import { formatDuration } from "@/lib/utils/format";
 
 export default function LibraryClipsPage() {
   const { clips: userClips, removeClip } = useClips();
-  const seeded = getAllClips();
-  const seededIds = new Set(seeded.map((c) => c.id));
-  const userOnly = userClips.filter((c) => !seededIds.has(c.id));
-  const all = [...userOnly, ...seeded];
 
   return (
     <div className="section-shell py-8">
       <h1 className="text-2xl font-bold">My clips</h1>
-      <p className="mt-1 text-text-secondary">Clips you created and saved.</p>
+      <p className="mt-1 text-text-secondary">Clips you created and saved on this device.</p>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {all.map((clip) => {
-          const isUserClip = userClips.some((c) => c.id === clip.id);
-          const href = isUserClip ? `/clips/view?id=${clip.id}` : `/clips/${clip.id}`;
-          return (
-            <div key={clip.id} className="solid-surface">
-            <Link href={href} className="font-semibold hover:text-accent-primary">
-              {clip.title}
-            </Link>
-            <p className="mt-1 text-xs text-text-tertiary">
-              {formatDuration(clip.durationSeconds)} · {clip.views} views
-            </p>
-            {userClips.some((c) => c.id === clip.id) && (
-              <button
-                type="button"
-                onClick={() => removeClip(clip.id)}
-                className="btn-secondary mt-3 text-xs"
-              >
-                Delete
-              </button>
-            )}
+      {userClips.length === 0 ? (
+        <div className="mt-8 solid-surface max-w-lg text-sm text-text-secondary">
+          <p className="font-medium text-text-primary">No clips yet</p>
+          <p className="mt-1">
+            Open any live stream and press <kbd className="rounded bg-bg-elevated-2 px-1.5 py-0.5">C</kbd>{" "}
+            (or use the Clip button) to capture a moment. Your clips are stored locally for this demo.
+          </p>
+          <Link href="/clips" className="btn-secondary mt-4 inline-flex text-sm">
+            Browse all clips
+          </Link>
+        </div>
+      ) : (
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {userClips.map((clip) => (
+            <div
+              key={clip.id}
+              className="group overflow-hidden rounded-card border border-border-subtle bg-bg-elevated"
+            >
+              <Link href={`/clips/view?id=${clip.id}`} className="block focus-ring">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={clip.posterUrl}
+                  alt={`Clip thumbnail: ${clip.title}`}
+                  className="aspect-video w-full object-cover transition-transform group-hover:scale-[1.02]"
+                  width={320}
+                  height={180}
+                />
+                <div className="p-3">
+                  <p className="text-sm font-medium line-clamp-2">{clip.title}</p>
+                  <p className="mt-1 text-xs text-text-tertiary">
+                    {formatDuration(clip.durationSeconds)} · {clip.views} views
+                  </p>
+                </div>
+              </Link>
+              <div className="px-3 pb-3">
+                <button
+                  type="button"
+                  onClick={() => removeClip(clip.id)}
+                  className="btn-secondary text-xs"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-          );
-        })}
-      </div>
-
-      {all.length === 0 && (
-        <p className="mt-8 text-text-secondary">No clips yet. Press C on a watch page to create one.</p>
+          ))}
+        </div>
       )}
     </div>
   );

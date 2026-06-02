@@ -9,7 +9,21 @@ export default defineConfig({
     baseURL: "http://127.0.0.1:3456",
     trace: "on-first-retry",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  expect: {
+    toHaveScreenshot: { maxDiffPixelRatio: 0.05, animations: "disabled" },
+  },
+  projects: [
+    {
+      name: "chromium",
+      testIgnore: /visual\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      name: "visual",
+      testMatch: /visual\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"] },
+    },
+  ],
   webServer: {
     command: "npx serve out -l 3456",
     url: "http://127.0.0.1:3456",

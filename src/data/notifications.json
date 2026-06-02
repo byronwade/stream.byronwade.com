@@ -1,0 +1,6 @@
+[
+  { "id": "ntf_seed_1", "kind": "live", "title": "Maya Builds is live", "body": "Building a forest city with chat votes", "href": "/live/forest-city-build", "createdAt": "2026-06-01T20:10:00-04:00", "read": false },
+  { "id": "ntf_seed_2", "kind": "clip", "title": "New clip from Beat Forge", "body": "Sample chosen — the chop is clean", "href": "/clips", "createdAt": "2026-06-01T18:30:00-04:00", "read": false },
+  { "id": "ntf_seed_3", "kind": "reply", "title": "Prof Ada replied to you", "body": "Great question about merge sort stability!", "href": "/live/intro-to-algorithms-workshop", "createdAt": "2026-06-01T16:12:00-04:00", "read": true },
+  { "id": "ntf_seed_4", "kind": "follow", "title": "RocketRage went live", "body": "Ranked grind to Grand Champ", "href": "/live/ranked-rocket-league-grind", "createdAt": "2026-06-01T15:00:00-04:00", "read": true }
+]

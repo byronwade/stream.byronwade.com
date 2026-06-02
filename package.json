@@ -12,7 +12,10 @@
     "lint": "eslint",
     "test": "vitest run --project unit",
     "test:watch": "vitest",
-    "test:e2e": "npm run build && playwright test",
+    "test:e2e": "npm run build && playwright test --project=chromium",
+    "test:visual": "npm run build && playwright test --project=visual",
+    "test:visual:update": "npm run build && playwright test --project=visual --update-snapshots",
+    "og:generate": "node scripts/generate-og.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -25,6 +28,7 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
     "@chromatic-com/storybook": "^5.2.1",
     "@playwright/test": "^1.60.0",
     "@storybook/addon-a11y": "^10.4.1",
